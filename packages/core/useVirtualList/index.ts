@@ -252,7 +252,14 @@ function useHorizontalVirtualList<T>(options: UseHorizontalVirtualListOptions, l
   useWatchForSizes(size, list, containerRef, calculateRange)
 
   const scrollTo = createScrollTo('horizontal', calculateRange, getDistanceLeft, containerRef)
-
+  
+  // dirty way
+  watch(state, () => {
+    if (state.value.start > state.value.end) {
+      scrollTo(state.value.end)
+    }
+  })
+  
   const wrapperProps = computed(() => {
     return {
       style: {
@@ -298,7 +305,14 @@ function useVerticalVirtualList<T>(options: UseVerticalVirtualListOptions, list:
   useWatchForSizes(size, list, containerRef, calculateRange)
 
   const scrollTo = createScrollTo('vertical', calculateRange, getDistanceTop, containerRef)
-
+  
+  // dirty way
+  watch(state, () => {
+    if (state.value.start > state.value.end) {
+      scrollTo(state.value.end)
+    }
+  })
+  
   const wrapperProps = computed(() => {
     return {
       style: {
